@@ -4,6 +4,30 @@ const FULL_HEART = '♥'
 
 // Your JavaScript code goes here!
 
+let likebutton = document.getElementsByClassName("like-glyph")[0];
+console.log(likebutton);
+
+likebutton.addEventListener('click',() => {
+  mimicServerCall()
+  .then(resp => resp.json())
+  .then(data => console.log(data))
+
+
+  .catch(() => {
+    let errorContact = document.getElementById("modal")
+    errorContact.style.visibility = "visible";
+    
+    setTimeout(() => {
+      errorContact.style.visibility = "hidden";
+    }, 3000);
+  })
+
+
+});
+
+
+
+
 
 
 
