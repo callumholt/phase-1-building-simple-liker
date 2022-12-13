@@ -5,26 +5,51 @@ const FULL_HEART = '♥'
 // Your JavaScript code goes here!
 
 let likebutton = document.getElementsByClassName("like-glyph")[0];
-console.log(likebutton);
+console.log(likebutton.innerHTML);
 
 likebutton.addEventListener('click',() => {
   mimicServerCall()
-  .then(resp => resp.json())
-  .then(data => console.log(data))
+  
+  .then(() => {
+    let likeimage = document.getElementsByClassName("like-glyph")[0]
+    
+    console.log("truthy or falsey: ", typeof likeimage.innerHTML === FULL_HEART)
 
+
+
+    if (likeimage.innerHTML === FULL_HEART) {
+      likeimage.innerHTML = EMPTY_HEART;
+      likeimage.classList.remove("activated-heart")
+
+      console.log("top if = ",likeimage.innerHTML)
+    }
+    else
+    {
+      likeimage.innerHTML = FULL_HEART;
+      likeimage.classList.add("activated-heart")
+
+      console.log("inside bottom if", likeimage.innerHTML)
+    }  
+
+
+    console.log("successfull mimicServerCall")
+
+
+    
+
+  })
 
   .catch(() => {
     let errorContact = document.getElementById("modal")
     errorContact.style.visibility = "visible";
-    
+    console.log("inside error catch")
+
     setTimeout(() => {
       errorContact.style.visibility = "hidden";
     }, 3000);
   })
 
-
-});
-
+})
 
 
 
