@@ -4,54 +4,52 @@ const FULL_HEART = '♥'
 
 // Your JavaScript code goes here!
 
-let likebutton = document.getElementsByClassName("like-glyph")[0];
+let likebutton = document.getElementsByClassName("like-glyph");
 console.log(likebutton.innerHTML);
 
-likebutton.addEventListener('click',() => {
-  mimicServerCall()
-  
-  .then(() => {
-    let likeimage = document.getElementsByClassName("like-glyph")[0]
+let likeButtonIndex
+
+for (let i=0 ;i < likebutton.length; i++) {
+  likebutton[i].addEventListener('click',() => {
+    mimicServerCall()
     
-    console.log("truthy or falsey: ", typeof likeimage.innerHTML === FULL_HEART)
+    .then(() => {
+      let likeimage = document.getElementsByClassName("like-glyph")[i]
+      
+      console.log("truthy or falsey: ", typeof likeimage.innerHTML === FULL_HEART)
+
+      if (likeimage.innerHTML === FULL_HEART) {
+        likeimage.innerHTML = EMPTY_HEART;
+        likeimage.classList.remove("activated-heart")
+
+        console.log("top if = ",likeimage.innerHTML)
+      }
+      else
+      {
+        likeimage.innerHTML = FULL_HEART;
+        likeimage.classList.add("activated-heart")
+
+        console.log("inside bottom if", likeimage.innerHTML)
+      }  
 
 
+      console.log("successfull mimicServerCall")
 
-    if (likeimage.innerHTML === FULL_HEART) {
-      likeimage.innerHTML = EMPTY_HEART;
-      likeimage.classList.remove("activated-heart")
+    })
 
-      console.log("top if = ",likeimage.innerHTML)
-    }
-    else
-    {
-      likeimage.innerHTML = FULL_HEART;
-      likeimage.classList.add("activated-heart")
+    .catch(() => {
+      let errorContact = document.getElementById("modal")
+      errorContact.style.visibility = "visible";
+      console.log("inside error catch")
 
-      console.log("inside bottom if", likeimage.innerHTML)
-    }  
-
-
-    console.log("successfull mimicServerCall")
-
-
-    
+      setTimeout(() => {
+        errorContact.style.visibility = "hidden";
+      }, 3000);
+    })
 
   })
 
-  .catch(() => {
-    let errorContact = document.getElementById("modal")
-    errorContact.style.visibility = "visible";
-    console.log("inside error catch")
-
-    setTimeout(() => {
-      errorContact.style.visibility = "hidden";
-    }, 3000);
-  })
-
-})
-
-
+}
 
 
 
